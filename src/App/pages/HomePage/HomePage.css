@@ -1,0 +1,9 @@
+.logo-container {
+    height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.julia-musht {
+    width: 100vw;
+}

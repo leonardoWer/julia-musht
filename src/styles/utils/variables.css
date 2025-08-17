@@ -1,0 +1,16 @@
+:root {
+    /* Цвета */
+    --light-bg: #d8d8d8;
+    --dark-text: #0d0e12;
+    --dark-gray: #222222;
+    --gray: #4c4c4c;
+    --light-gray: #e9e9e9;
+
+    /* Радиусы */
+    --border-radius: 4px;
+    --two-border-radius: 16px;
+
+    /*  Шрифты  */
+    --inter-bold-font: "Inter Tight Bold", "Inter Bold", "Inter", "Helvetica", "Roboto Bold", sans-serif;
+    --inter-regular-font: "Inter Tight Regular", "Inter Regular", "Inter", "Helvetica", "Roboto Regular", sans-serif;
+}
