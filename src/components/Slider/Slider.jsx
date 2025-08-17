@@ -27,7 +27,6 @@ const Slider = () => {
     const trackRef = useRef(null);
     const sliderRef = useRef(null);
     const slideImgsRef = useRef([]);
-
     const animationRef = useRef(null);
     const [isMobile, setIsMobile] = useState(false);
     const [slideWidth, setSlideWidth] = useState(390);
@@ -36,7 +35,6 @@ const Slider = () => {
     const sliderState = useRef({
         currentX: 0,
         targetX: 0,
-        slides: [],
         isDragging: false,
         startX: 0,
         lastX: 0,
@@ -80,7 +78,6 @@ const Slider = () => {
 
     // Инициализация слайдов
     const initializeSlides = useCallback(() => {
-        const slidesCountWithCopy = totalSlidesCount * 6;
         const startOffset = -totalSlidesCount * slideWidth * 2;
 
         sliderState.current = {
@@ -89,7 +86,6 @@ const Slider = () => {
             targetX: startOffset,
         };
 
-        // Очищаем track перед добавлением новых слайдов
         if (trackRef.current) {
             trackRef.current.style.transform = `translate3d(${startOffset}px, 0, 0)`;
         }
@@ -97,7 +93,7 @@ const Slider = () => {
 
     // Обновление позиций слайдов
     const updateSlidePositions = useCallback(() => {
-        const { currentX, targetX } = sliderState.current;
+        const { currentX } = sliderState.current;
         const sequenceWidth = slideWidth * totalSlidesCount;
 
         if (currentX > sequenceWidth * -1) {
@@ -159,9 +155,9 @@ const Slider = () => {
 
     // Основная анимация
     const animate = useCallback(() => {
-        const { currentX, targetX, LERP_FACTOR = sliderConfig.LERP_FACTOR } = sliderState.current;
+        const { currentX, targetX } = sliderState.current;
 
-        sliderState.current.currentX += (targetX - currentX) * LERP_FACTOR;
+        sliderState.current.currentX += (targetX - currentX) * sliderConfig.LERP_FACTOR;
 
         updateMovingState();
         updateSlidePositions();
@@ -170,7 +166,51 @@ const Slider = () => {
         animationRef.current = requestAnimationFrame(animate);
     }, [updateMovingState, updateSlidePositions, updateParallax]);
 
-    // Обработчики событий
+    // Обработчики событий мыши
+    const handleMouseDown = useCallback((e) => {
+        e.preventDefault();
+        sliderState.current = {
+            ...sliderState.current,
+            isDragging: true,
+            startX: e.clientX,
+            lastMouseX: e.clientX,
+            lastX: sliderState.current.targetX,
+            dragDistance: 0,
+            hasActuallyDragged: false,
+            lastScrollTime: Date.now(),
+        };
+    }, []);
+
+    const handleMouseMove = useCallback((e) => {
+        if (!sliderState.current.isDragging) return;
+        e.preventDefault();
+
+        const deltaX = (e.clientX - sliderState.current.lastMouseX) * 2;
+        sliderState.current.targetX += deltaX;
+        sliderState.current.lastMouseX = e.clientX;
+        sliderState.current.dragDistance += Math.abs(deltaX);
+
+        if (sliderState.current.dragDistance > 5) {
+            sliderState.current.hasActuallyDragged = true;
+        }
+
+        sliderState.current.lastScrollTime = Date.now();
+    }, []);
+
+    const handleMouseUp = useCallback(() => {
+        sliderState.current.isDragging = false;
+        setTimeout(() => {
+            sliderState.current.hasActuallyDragged = false;
+        }, 100);
+    }, []);
+
+    const handleMouseLeave = useCallback(() => {
+        if (sliderState.current.isDragging) {
+            handleMouseUp();
+        }
+    }, [handleMouseUp]);
+
+    // Обработчик колеса мыши
     const handleWheel = useCallback((e) => {
         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) return;
         e.preventDefault();
@@ -194,7 +234,16 @@ const Slider = () => {
 
         // Добавляем обработчики
         slider.addEventListener('wheel', handleWheel, { passive: false });
+        slider.addEventListener('mousedown', handleMouseDown);
+        slider.addEventListener('mousemove', handleMouseMove);
+        slider.addEventListener('mouseup', handleMouseUp);
+        slider.addEventListener('mouseleave', handleMouseLeave);
         window.addEventListener('resize', checkMobile);
+
+        // Запрещаем перетаскивание изображений
+        const preventDrag = (e) => e.preventDefault();
+        const images = slider.querySelectorAll('img');
+        images.forEach(img => img.addEventListener('dragstart', preventDrag));
 
         // Запускаем анимацию
         animationRef.current = requestAnimationFrame(animate);
@@ -202,10 +251,25 @@ const Slider = () => {
         return () => {
             // Очистка
             slider.removeEventListener('wheel', handleWheel);
+            slider.removeEventListener('mousedown', handleMouseDown);
+            slider.removeEventListener('mousemove', handleMouseMove);
+            slider.removeEventListener('mouseup', handleMouseUp);
+            slider.removeEventListener('mouseleave', handleMouseLeave);
             window.removeEventListener('resize', checkMobile);
+
+            images.forEach(img => img.removeEventListener('dragstart', preventDrag));
             cancelAnimationFrame(animationRef.current);
         };
-    }, [checkMobile, initializeSlides, animate, handleWheel]);
+    }, [
+        checkMobile,
+        initializeSlides,
+        animate,
+        handleWheel,
+        handleMouseDown,
+        handleMouseMove,
+        handleMouseUp,
+        handleMouseLeave
+    ]);
 
     return (
         <div ref={sliderRef} className="slider">
