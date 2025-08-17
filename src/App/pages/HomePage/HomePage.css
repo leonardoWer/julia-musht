@@ -7,3 +7,20 @@
 .julia-musht {
     width: 100vw;
 }
+
+.img-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 10vh;
+    width: 100%;
+    overflow-x: hidden;
+}
+.title-img {
+    width: 60%;
+    height: 100%;
+}
+.about-img {
+    display: none;
+    opacity: 0;
+}
