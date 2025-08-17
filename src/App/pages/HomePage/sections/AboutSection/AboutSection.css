@@ -1,0 +1,20 @@
+#aboutSection {
+    margin-top: 8000px;
+}
+
+.about-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    gap: 5vh;
+}
+
+.about-rg-text {
+    color: var(--dark-text);
+    align-self: flex-end;
+    font-family: var(--inter-regular-font);
+    font-size: 3.5rem;
+    width: 40%;
+    margin-top: 5vh;
+    text-wrap: balance;
+}

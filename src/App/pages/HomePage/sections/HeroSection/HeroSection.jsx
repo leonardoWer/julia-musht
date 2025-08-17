@@ -75,7 +75,6 @@ function HeroSection() {
     // (1) Photo zoom
     useEffect(() => {
         const photoMoveTl = gsap.timeline({
-            duration: 15,
             scrollTrigger: {
                 trigger: imgWrapper.current,
                 start: "center bottom",
@@ -88,14 +87,14 @@ function HeroSection() {
             left: 0,
             translate: "0% 0",
             width: "50%",
-            ease: "none",
+            ease: "sine",
             duration: 5,
         }, 0)
             .fromTo(aboutImgRef.current, {
                 right: "-100%",
             }, {
                 right: 0,
-                ease: "none",
+                ease: "power1.out",
                 duration: 10,
             }, 0.2)
             .to(aboutImgRef.current, {
@@ -117,7 +116,7 @@ function HeroSection() {
                 start: "bottom bottom",
                 end: "+=8000",
                 pin: imgContainer.current,
-                scrub: true,
+                scrub: 2,
             }
         })
 
@@ -168,7 +167,6 @@ function HeroSection() {
 
         tl.add(fadeOutTl)
 
-
         return () => {
             tl.kill();
             fadeOutTl.kill();
@@ -178,36 +176,34 @@ function HeroSection() {
 
     return (
         <section id="heroSection">
-            <div>
 
-                <div className="logo-container">
-                    <div dangerouslySetInnerHTML={{ __html: svgContent }} ref={svgRef} className="julia-musht"/>
-                </div>
-
-                <div className="img-container" ref={imgContainer}>
-                    <div ref={imgWrapper} className="img-container__wrapper">
-                        <img ref={titleImgRef} className="title-img" src="img/hero-1.jpg" alt="title-photo" />
-                        <img ref={aboutImgRef} className="about-img" src="img/town.jpg" alt="about-photo" />
-
-                        {infoTextData.map((item, i) => (
-                            <h4 ref={(el) => (infoTexts.current[i] = el)} className="info-text" key={i}>
-                                {item}
-                            </h4>
-                        ))}
-
-                        <div ref={aboutContainer} className="about-text-container">
-                            <span ref={aboutTextLabel} className="about-text__label">
-                                lorem ipsum
-                            </span>
-                            <p ref={aboutText} className="about-text">
-                                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid animi aspernatur deleniti dolorem ducimus earum expedita impedit
-                            </p>
-                        </div>
-
-                    </div>
-                </div>
-
+            <div className="logo-container">
+                <div dangerouslySetInnerHTML={{ __html: svgContent }} ref={svgRef} className="julia-musht"/>
             </div>
+
+            <div className="img-container" ref={imgContainer}>
+                <div ref={imgWrapper} className="img-container__wrapper">
+                    <img ref={titleImgRef} className="title-img" src="img/hero-1.jpg" alt="title-photo" />
+                    <img ref={aboutImgRef} className="about-img" src="img/town.jpg" alt="about-photo" />
+
+                    {infoTextData.map((item, i) => (
+                        <h4 ref={(el) => (infoTexts.current[i] = el)} className="info-text" key={i}>
+                            {item}
+                        </h4>
+                    ))}
+
+                    <div ref={aboutContainer} className="about-text-container">
+                        <span ref={aboutTextLabel} className="about-text__label">
+                            lorem ipsum
+                        </span>
+                        <p ref={aboutText} className="about-text">
+                            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aliquid animi aspernatur deleniti dolorem ducimus earum expedita impedit
+                        </p>
+                    </div>
+
+                </div>
+            </div>
+
         </section>
     )
 }

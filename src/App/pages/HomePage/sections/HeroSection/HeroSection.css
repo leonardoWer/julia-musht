@@ -62,7 +62,7 @@
 .about-text {
     font-family: var(--inter-bold-font);
     font-size: 6rem;
-    max-width: 80%;
+    max-width: 70%;
     mix-blend-mode: overlay;
 }
 .about-text__label {
