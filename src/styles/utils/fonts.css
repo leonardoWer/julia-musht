@@ -1,9 +1,9 @@
 @font-face {
-    font-family: "Stengazeta";
-    src: url("/fonts/stengazeta.ttf");
+    font-family: "Inter Bold";
+    src: url("/fonts/inter-tight__bold.ttf");
 }
 
 @font-face {
-    font-family: "volante";
-    src: url("/fonts/1shelleyvolante.ttf");
+    font-family: "Inter Regular";
+    src: url("/fonts/inter-tight__regular.ttf");
 }

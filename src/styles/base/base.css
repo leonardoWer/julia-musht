@@ -16,11 +16,12 @@ html {
     scrollbar-gutter: stable;
 }
 &::-webkit-scrollbar {
-    background-color: transparent;
+    background-color: var(--light-gray);
     width: 8px;
 }
 &::-webkit-scrollbar-thumb {
-    background-color: var(--light-gray);
+    background-color: var(--gray);
+    border-radius: 8px;
     background-clip: content-box;
 }
 &::-webkit-scrollbar-thumb:hover {
