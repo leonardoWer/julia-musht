@@ -19,7 +19,7 @@ function SliderSection() {
             scrollTrigger: {
                 trigger: parentContainer.current,
                 start: "bottom bottom",
-                end: "+=2000px",
+                end: "+=1800px",
                 pin: true,
                 scrub: 1,
             }
@@ -28,24 +28,32 @@ function SliderSection() {
         tl.to(imgRef.current, {
             width: "50%",
             height: "50%",
+            duration: 5
         })
-            .add("photoDecreased")
+            .add("photoDecreased", "+=0.5")
             .to(imgContainer.current, {
                 xPercent: -100,
-                ease: "power2.out"
-            })
+                ease: "power2.in",
+                duration: 2
+            }, "photoDecreased")
             .to(imgContainer.current, {
                 display: "none",
             })
             .fromTo(sliderContainer.current, {
                 opacity: 0,
                 scale: 0.8,
-                left: "-50%"
+                left: "100%",
+                pointerEvents: 'none',
             }, {
                 opacity: 1,
                 scale: 1,
                 left: 0,
+                ease: "power1.out",
+                duration: 3,
             }, "photoDecreased")
+            .to(sliderContainer.current, {
+                pointerEvents: 'auto',
+            })
 
         return () => {
             tl.kill()

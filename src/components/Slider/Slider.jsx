@@ -62,7 +62,7 @@ const Slider = () => {
             <div className={isMobile ? "slide slide-mobile" : "slide"}>
                 <div className="slide-image">
                     <img
-                        ref={el => (slideImgsRef.current[index] = el)}
+                        ref={el => (el ? slideImgsRef.current[index] = el : null)}
                         src={img}
                         alt={title}
                         data-index={index % totalSlidesCount}
