@@ -1,0 +1,45 @@
+.about-tile {
+    position: relative;
+    cursor: pointer;
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid var(--dark-gray);
+    padding: 0 10%;
+}
+
+.about-tile__text-container {
+    display: flex;
+    gap: 2em;
+    align-items: flex-start;
+}
+.about-tile__title {
+    color: var(--dark-text);
+    font-family: var(--inter-bold-font);
+    text-transform: uppercase;
+    font-size: 8rem;
+    z-index: 1;
+    line-height: 0.8;
+}
+.about-tile__index {
+    font-size: 2rem;
+    font-family: var(--inter-regular-font);
+    color: var(--dark-gray);
+}
+
+.about-tile__img-container {
+    position: absolute;
+    width: 30%;
+    height: 0;
+    pointer-events: none;
+    transform-origin: top center;
+    overflow: hidden;
+    will-change: transform;
+}
+.about-tile__img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    will-change: transform;
+}

@@ -1,6 +1,24 @@
 import "./AboutSection.css"
 
+import AboutTile from "./components/AboutTile.jsx";
+
 function AboutSection() {
+
+    const aboutTilesData = [
+        {
+            title: "Lorem 40 Ipsum",
+            hoverImg: "img/slider/1.jpg",
+        },
+        {
+            title: "Solom dor 1",
+            hoverImg: "img/slider/4.jpg",
+        },
+        {
+            title: "Helvetioas asdaf",
+            hoverImg: "img/slider/11.jpg",
+        },
+    ]
+
     return (
         <section id="aboutSection">
             <div className="about-container">
@@ -9,7 +27,16 @@ function AboutSection() {
                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Beatae doloremque dolores excepturi expedita natus sunt tempora tenetur ut voluptatibus. Ab accusantium, aliquam aut earum eligendi magni non provident tempora vel!
                 </p>
 
-                <div className="about-tiles-container"></div>
+                <div className="about-tiles-container">
+                    {aboutTilesData.map((tile, index) => (
+                        <AboutTile
+                            key={index}
+                            title={tile.title}
+                            hoverImg={tile.hoverImg}
+                            index={index}>
+                        </AboutTile>
+                    ))}
+                </div>
             </div>
         </section>
     )

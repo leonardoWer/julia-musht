@@ -90,8 +90,8 @@ function HeroSection() {
         })
 
         photoMoveTl.to(titleImgRef.current, {
-            left: 0,
-            translate: "0% 0",
+            x: "-50%",
+            translate: "0 0",
             width: "50%",
             ease: "sine",
             duration: 5,
@@ -153,6 +153,7 @@ function HeroSection() {
         })
             .to(titleImgRef.current, {
                 yPercent: -50,
+                left: 0,
                 width: "0",
                 ease: "power1.in",
         }, 1)
