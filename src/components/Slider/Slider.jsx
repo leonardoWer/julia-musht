@@ -14,6 +14,7 @@ const slidesData = [
     { img: "img/slider/10.jpg", title: "Slider 10" },
     { img: "img/slider/11.jpg", title: "Slider 11" },
     { img: "img/slider/12.jpg", title: "Slider 12" },
+    { img: "img/slider/13.jpg", title: "Slider 13" },
 ];
 
 const sliderConfig = {
