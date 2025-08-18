@@ -11,11 +11,11 @@ function AboutSection() {
         },
         {
             title: "Solom dor 1",
-            hoverImg: "img/slider/4.jpg",
+            hoverImg: "img/slider/8.jpg",
         },
         {
             title: "Helvetioas asdaf",
-            hoverImg: "img/slider/11.jpg",
+            hoverImg: "img/slider/2.jpg",
         },
     ]
 

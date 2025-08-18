@@ -7,12 +7,6 @@ import {useGSAP} from '@gsap/react';
 
 function AboutTile({title, hoverImg, index}) {
 
-    const parallaxSettings = [
-        {x: 15, y: -10, scale: 1.05},
-        {x: -10, y: 15, scale: 1.03},
-        {x: 5, y: 5, scale: 1.07}
-    ];
-
     const aboutTileRef = useRef(null);
     const textContainerRef = useRef(null);
     const imgContainerRef = useRef(null);
@@ -34,18 +28,18 @@ function AboutTile({title, hoverImg, index}) {
     }, []);
 
 
+    // Анимация картинки
     const showHoverImg = useCallback((x, y) => {
         gsap.set(imgContainerRef.current, {
             x: x,
             y: y,
         });
         gsap.to(imgContainerRef.current, {
-            height: "40vh",
+            height: "150%",
             duration: 0.5,
             ease: 'power2.out'
         });
     }, []);
-
 
     const hideHoverImg = useCallback(() => {
         gsap.to(imgContainerRef.current, {
@@ -56,13 +50,31 @@ function AboutTile({title, hoverImg, index}) {
     }, []);
 
 
+    // Анимация текст контейнера
+    const animateTextContainerMouseHover = useCallback(() => {
+        gsap.to(textContainerRef.current, {
+            xPercent: -15,
+            duration: 0.6,
+            ease: "power2.inOut"
+        })
+    }, []);
+
+    const animateTextContainerMouseLeave = useCallback(() => {
+        gsap.to(textContainerRef.current, {
+            xPercent: 0,
+            duration: 0.6,
+            ease: "power2.inOut"
+        })
+    }, [])
+
+
     const handleMouseMove = useCallback((e) => {
         if (!isHovered || !imgContainerRef.current || !aboutTileRef.current) return;
 
         const {x, y} = getCursorPosition(e);
 
-        const parallaxX = (e.clientX / window.innerWidth) * 130;
-        const parallaxY = (e.clientY / window.innerHeight) * 180;
+        const parallaxX = (e.clientX / window.innerWidth) * 150;
+        const parallaxY = (e.clientY / window.innerHeight) * 200;
 
         gsap.to(imgContainerRef.current, {
             x: x,
@@ -87,11 +99,14 @@ function AboutTile({title, hoverImg, index}) {
 
         const {x, y} = getCursorPosition(e);
         showHoverImg(x, y);
+
+        animateTextContainerMouseHover();
     }, [showHoverImg]);
 
     const handleMouseLeave = useCallback(() => {
         setIsHovered(false);
         hideHoverImg();
+        animateTextContainerMouseLeave();
     }, [hideHoverImg]);
 
     useGSAP(() => {
@@ -112,11 +127,11 @@ function AboutTile({title, hoverImg, index}) {
     return (
         <div ref={aboutTileRef} className="about-tile">
 
-            <div className="about-tile__text-container">
-                <div ref={titleRef} className="about-tile__index">
-                   (0{index})
+            <div ref={textContainerRef} className="about-tile__text-container">
+                <div className="about-tile__index">
+                   (0{index + 1})
                 </div>
-                <div ref={titleRef} className="about-tile__title">
+                <div className="about-tile__title">
                     {title}
                 </div>
             </div>
