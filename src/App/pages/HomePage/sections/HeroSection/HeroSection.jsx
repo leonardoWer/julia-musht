@@ -45,14 +45,34 @@ function HeroSection() {
     }, []);
 
     useEffect(() => {
-        if (svgContent) {
-            animateSvg();
-        }
+        if (!svgContent || !svgRef.current) return;
+
+        // Создаем триггер для определения видимости
+        ScrollTrigger.create({
+            trigger: svgRef.current,
+            start: "top top",
+            onEnter: () => {
+                if (window.scrollY === 0) { // Только если в самом верху
+                    animateSvg();
+                }
+            },
+            onRefresh: (self) => {
+                // Срабатывает при загрузке/обновлении, если триггер виден
+                if (self.isActive && window.scrollY === 0) {
+                    animateSvg();
+                }
+            }
+        });
     }, [svgContent]);
 
     function animateSvg() {
         const svg = svgRef.current;
-        const fadeInTl = gsap.timeline()
+        const fadeInTl = gsap.timeline({
+            scrollTrigger: {
+                trigger: svgRef.current,
+                start: "top top",
+            }
+        })
 
         fadeInTl.set(document.body, {overflow: "hidden"})
             .set("#Julia", {opacity: 0})
