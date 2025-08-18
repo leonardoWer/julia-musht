@@ -42,12 +42,12 @@ function SliderSection() {
             .fromTo(sliderContainer.current, {
                 opacity: 0,
                 scale: 0.8,
-                left: "100%",
+                xPercent: 100,
                 pointerEvents: 'none',
             }, {
                 opacity: 1,
                 scale: 1,
-                left: 0,
+                xPercent: 0,
                 ease: "power1.out",
                 duration: 3,
             }, "photoDecreased")

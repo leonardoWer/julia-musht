@@ -3,6 +3,7 @@
     width: 100%;
     position: relative;
     background: var(--dark-text);
+    overflow: hidden;
 }
 
 .slider-section__img-container, .slider-container {

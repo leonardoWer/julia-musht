@@ -68,6 +68,12 @@ function HeroSection() {
             }, {yPercent: 0}, "+=0.2")
             .to("#Julia", {opacity: 1})
             .to("#Musht", {opacity: 1})
+            .fromTo(imgContainer.current, {
+                yPercent: 100,
+            }, {
+                yPercent: 0,
+                ease: "power2.out",
+            })
     }
 
     // Another gsap animations
@@ -146,6 +152,7 @@ function HeroSection() {
             ease: "power2.in",
         })
             .to(titleImgRef.current, {
+                yPercent: -50,
                 width: "0",
                 ease: "power1.in",
         }, 1)
