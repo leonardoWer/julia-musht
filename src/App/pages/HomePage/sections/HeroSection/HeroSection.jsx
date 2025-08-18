@@ -54,7 +54,8 @@ function HeroSection() {
         const svg = svgRef.current;
         const fadeInTl = gsap.timeline()
 
-        fadeInTl.set("#Julia", {opacity: 0})
+        fadeInTl.set(document.body, {overflow: "hidden"})
+            .set("#Julia", {opacity: 0})
             .set("#Musht", {opacity: 0})
             .fromTo("#photo-1", {
                 yPercent: -100,
@@ -74,6 +75,9 @@ function HeroSection() {
                 yPercent: 0,
                 ease: "power2.out",
             })
+            .set(document.body, {
+                overflow: "visible"
+            }, "+=0.2")
     }
 
     // Another gsap animations

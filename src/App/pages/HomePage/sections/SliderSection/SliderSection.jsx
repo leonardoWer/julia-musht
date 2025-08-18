@@ -49,7 +49,7 @@ function SliderSection() {
                 scale: 1,
                 xPercent: 0,
                 ease: "power1.out",
-                duration: 3,
+                duration: 8
             }, "photoDecreased")
             .to(sliderContainer.current, {
                 pointerEvents: 'auto',
