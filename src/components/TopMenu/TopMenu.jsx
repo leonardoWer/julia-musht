@@ -12,6 +12,8 @@ function TopMenu() {
     const menuOpenRef = useRef(null);
     const menuCloseRef = useRef(null);
     const menuContentContainerRef = useRef(null);
+    const navigationLinksRef = useRef([]);
+    const contactLinksRef = useRef([]);
 
     const navigationData = useMemo(() => [
         {
@@ -85,17 +87,29 @@ function TopMenu() {
             .set(menuContentContainerRef.current, {
                 scale: 0.8,
                 opacity: 1
-            })
+            }, 0)
+            .set([navigationLinksRef.current, contactLinksRef.current], {
+                yPercent: 100,
+                opacity: 0,
+            }, 0)
             .fromTo(menuContentContainerRef.current, {
                 yPercent: 100,
             }, {
                 yPercent: 0,
-                duration: 0.6
-            })
+                duration: 0.5
+            }, "<")
             .to(menuContentContainerRef.current, {
                 scale: 1,
             })
             .to(menuCloseRef.current, { yPercent: 0 }, "-=0.2")
+            .fromTo([navigationLinksRef.current, contactLinksRef.current], {
+                yPercent: 100,
+                opacity: 0,
+            }, {
+                yPercent: 0,
+                opacity: 1,
+                stagger: 0.2,
+            }, "-=0.8")
             .set(document.body, {overflow: "hidden"})
 
 
@@ -105,17 +119,29 @@ function TopMenu() {
             onComplete: () => {handlePhotoChange();}
         })
         hideMenuTl.to(menuCloseRef.current, { yPercent: 100 })
+            .fromTo(navigationLinksRef.current, {
+                yPercent: 0,
+                opacity: 1,
+            }, {
+                yPercent: 100,
+                opacity: 0,
+                stagger: 0.1,
+            }, "-=0.4")
+            .fromTo(contactLinksRef.current, {
+                yPercent: 0,
+                opacity: 1,
+            }, {
+                yPercent: 100,
+                opacity: 0,
+                stagger: 0.1,
+            }, "<")
             .fromTo(menuContentContainerRef.current, {
                 scale: 1,
             }, {
                 scale: 0.8,
-                duration: 0.6,
-            })
-            .fromTo(menuContentContainerRef.current, {
-                yPercent: 0,
-            }, {
-                yPercent: 100,
-            })
+                duration: 0.5,
+            }, "<")
+            .fromTo(menuContentContainerRef.current, {yPercent: 0,}, {yPercent: 100})
             .set(menuContentContainerRef.current, {opacity: 0})
             .to(menuOpenRef.current, { yPercent: 0 }, "-=0.2")
             .set(document.body, {overflow: "visible"})
@@ -155,7 +181,8 @@ function TopMenu() {
                         <ul className="menu-content__navigation-list">
                             {navigationData.map((item, index) => (
                                 <li className="navigation-item"
-                                    key={index}>
+                                    key={index}
+                                    ref={(el) => (navigationLinksRef.current[index] = el)}>
                                     {item.title}
                                 </li>
                             ))}
@@ -164,7 +191,8 @@ function TopMenu() {
                         <ul className="menu-content__contacts-list">
                             {contactsData.map((item, index) => (
                                 <li className="contact-item"
-                                    key={index}>
+                                    key={index}
+                                    ref={(el) => (contactLinksRef.current[index] = el)}>
                                     <a href={item.href} target="_blank" rel="noopener noreferrer">
                                         {item.title}
                                     </a>
