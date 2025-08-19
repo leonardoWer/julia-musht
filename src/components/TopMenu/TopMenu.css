@@ -84,12 +84,12 @@
 }
 .menu-content__navigation-list {
     color: var(--light-bg);
-    font-size: 6rem;
+    font-size: clamp(3rem, 2.622rem + 1.89vw, 6.4rem);
     gap: 0.4em;
 }
 .menu-content__contacts-list {
     color: var(--light-gray);
-    font-size: 1.2rem;
+    font-size: clamp(1rem, 0.919rem + 0.41vw, 1.4rem);
     gap: 0.8em;
 }
 
@@ -123,4 +123,10 @@
 .contact-item:hover::after {
     transform: scaleX(1);
     transform-origin: left;
+}
+
+@media (max-width: 920px) {
+    .menu__title-img {
+        display: none;
+    }
 }
