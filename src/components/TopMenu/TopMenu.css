@@ -19,6 +19,10 @@
     position: relative;
     color: var(--dark-text);
     user-select: none;
+    transition: all 0.2s ease-in-out;
+}
+.menu-toggle:hover {
+    color: var(--gray);
 }
 .menu-open, .menu-close {
     position: absolute;
@@ -91,6 +95,7 @@
     color: var(--light-gray);
     font-size: clamp(1rem, 0.919rem + 0.41vw, 1.4rem);
     gap: 0.8em;
+    padding-bottom: 0.2em;
 }
 
 .navigation-item, .contact-item {

@@ -144,7 +144,7 @@ function HeroSection() {
             scrollTrigger: {
                 trigger: imgWrapper.current,
                 start: "bottom bottom",
-                end: "+=8000",
+                end: "+=6000",
                 pin: imgContainer.current,
                 scrub: 2,
             }
