@@ -18,12 +18,12 @@
     color: var(--dark-text);
     font-family: var(--inter-bold-font);
     text-transform: uppercase;
-    font-size: 8rem;
+    font-size: clamp(2.2rem, 1.556rem + 3.22vw, 8rem);
     z-index: 1;
     line-height: 0.8;
 }
 .about-tile__index {
-    font-size: 2rem;
+    font-size: clamp(0.8rem, 0.644rem + 0.78vw, 2.2rem);
     font-family: var(--inter-regular-font);
     color: var(--dark-gray);
 }

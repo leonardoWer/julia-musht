@@ -14,7 +14,7 @@
     color: var(--dark-text);
     align-self: flex-end;
     font-family: var(--inter-regular-font);
-    font-size: 3.5rem;
+    font-size: clamp(1rem, 0.722rem + 1.39vw, 3.5rem);
     width: 40%;
     margin-top: 5vh;
     text-wrap: balance;

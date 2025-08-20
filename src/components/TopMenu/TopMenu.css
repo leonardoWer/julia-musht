@@ -10,7 +10,7 @@
 }
 
 .menu-toggle {
-    width: 100px;
+    width: 4em;
     --font-size: 1.2rem;
     height: var(--font-size);
     font-size: var(--font-size);

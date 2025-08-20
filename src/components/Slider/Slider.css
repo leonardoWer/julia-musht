@@ -61,7 +61,7 @@
 }
 
 .slide-title {
-    font-size: 2rem;
+    font-size: clamp(1rem, 0.867rem + 0.67vw, 2.2rem);
 }
 .slide-arrow {
     height: 2em;
